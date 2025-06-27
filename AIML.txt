@@ -1,0 +1,27 @@
+import time
+from datetime import datetime
+
+# Simulated USB devices
+mock_usb_devices = [
+    {'device_node': '/dev/sdb1', 'model': 'Kingston', 'serial': '123456'},
+    {'device_node': '/dev/sdc1', 'model': 'SanDisk', 'serial': '7891011'}
+]
+
+# Function to simulate write-blocking
+def simulate_usb_write_blocker(devices):
+    logs = []
+    for device in devices:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log = f"[{timestamp}] USB Detected: {device['device_node']} | Model: {device['model']} | Serial: {device['serial']}"
+        block_log = f"✅ Write access blocked for {device['device_node']}"
+        logs.append(log)
+        logs.append(block_log)
+        time.sleep(1)
+    return logs
+
+# Run the simulation
+log_output = simulate_usb_write_blocker(mock_usb_devices)
+
+# Show logs
+for line in log_output:
+    print(line)
